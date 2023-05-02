@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # list items in the current directory
 
-list=$(find . -mindepth 1 | tr -d "")
+list=$(ls)
 for i in $list
 do
 	echo "${i#*-}"
