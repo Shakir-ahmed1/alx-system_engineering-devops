@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# list items in the current directory
+
+ls | tr -d "" > list
+for i in `cat list`
+do
+	echo "${i#*-}"
+done
