@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# displays 10 Best School and in 9th also displays Hi
+
+i=1
+while [[ i -le 10 ]]
+do
+echo "Best School"
+((i++))
+if [[ $i -eq 10 ]]
+then
+echo "Hi"
+fi
+done
