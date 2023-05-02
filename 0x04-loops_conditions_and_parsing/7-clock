@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # prints the clock-s minute and hour of a day
 hour=0
-while [[ hour -lt 12 ]]
+while [[ hour -le 12 ]]
 do
 	echo "Hour: $hour"
 	((hour++))
-	minute=0
+	minute=1
 	while [[ minute -lt 60 ]]
 	do
 		echo "$minute"
