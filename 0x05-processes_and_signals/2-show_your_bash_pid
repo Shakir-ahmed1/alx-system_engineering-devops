@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# displays the PIDs that have the word bash
+
+ps aux | grep bash
