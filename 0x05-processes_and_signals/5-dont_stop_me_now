@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# kills the process created by 4-to_infinity_and_beyond
+
+sudo kill $(pidof bash)
