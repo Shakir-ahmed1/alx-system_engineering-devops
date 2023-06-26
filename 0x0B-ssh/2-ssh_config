@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# configures our ssh
+ssh-copy-id ubuntu@54.87.151.225
