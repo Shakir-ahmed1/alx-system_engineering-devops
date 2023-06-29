@@ -1,6 +1,6 @@
 # server side ssh config
 
 exec { 'config':
-  command => "echo 'Host 54.87.151.225\n\tIdentityFile ~/.ssh/school\n\tPasswordAuthentication no' >> /etc/ssh/sshd_config",
-  path    => '/usr/bin'
+    command => "echo 'Host 54.87.151.225\n\tPasswordAuthentication no\n\tIdentityFile ~/.ssh/school' >> /etc/ssh/ssh_config",
+    path    => '/usr/bin'
 }
