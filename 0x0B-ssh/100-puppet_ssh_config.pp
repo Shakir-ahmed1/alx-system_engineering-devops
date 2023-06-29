@@ -1,7 +1,7 @@
 # server side ssh config
 
-file { 'config':
-  path    => '/etc/ssh/sshd_config',
-  content => 'IdentityFile ~/.ssh/school\\nPasswordAuthentication no'
+exec { 'config':
+  content => "echo 'Host server\n\tIdentityFile ~/.ssh/school\n\tPasswordAuthentication no >> /etc/ssh/sshd_config",
+  path    => '/usr/bin',
 }
 
