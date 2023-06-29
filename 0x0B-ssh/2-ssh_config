@@ -1,3 +1,5 @@
-#!/usr/bin/env bash
-# configures our ssh
-ssh-copy-id ubuntu@54.87.151.225
+Host server
+	HostName 54.87.151.225
+	User ubuntu
+	IdentityFile ~/.ssh/school
+	PasswordAuthentication no	
