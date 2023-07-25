@@ -3,15 +3,20 @@
 sudo apt-get update
 sudo apt-get install -y nginx
 
+# start nginx server
 sudo service nginx start
 
+# write hello world in the /var/www/html/index.nginx-debian.html to make helloworld in the home page
 echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
 
+# giving or making nginx listen to HTTP port which is 80
 sudo ufw allow 'Nginx HTTP'
+# copy the default file inside sites-available to default.bak to recover it if something goes wrong
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 
-sudo sed -i '/server_name _;/a \\tlocation /redirect_me {\n\t\treturn 301 https://google.com/;\n\t}' /etc/nginx/sites-available/default
-
-sudo nginx -t
-
-sudo service nginx reload
+# inserts a redirection information. if the path given is /redirect_me it redirects it to google
+redirect="server_name _;\n\trewrite ^\/redirect_me google.com permanent;"
+# replaces the server_name _; with the rewrite for redirection
+sudo sed -i "s/server_name _;/$redirect/" /etc/nginx/sites-enabled/default
+# restarts nginx
+sudo service nginx restart
