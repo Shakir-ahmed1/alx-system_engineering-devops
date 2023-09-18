@@ -1,0 +1,3 @@
+sudo apt install ufw
+sudo ufw enable
+sudo ufw route allow proto tcp from any to any port 8080
