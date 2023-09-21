@@ -1,6 +1,6 @@
-#!/bin/bash
-
-function audit_subdomain {
+#!/usr/bin/env bash
+# checks the subdomain of a given domain
+function check_subdomain {
     domain="$1"
     subdomain="$2"
 
@@ -20,5 +20,5 @@ function audit_subdomain {
 }
 
 # Usage: ./0-world_wide_web domain [subdomain]
-audit_subdomain "$@"
+check_subdomain "$@"
 
