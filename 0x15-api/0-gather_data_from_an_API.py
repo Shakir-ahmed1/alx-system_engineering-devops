@@ -3,16 +3,16 @@
 gathers data of a user from an API and prints the tasks
 """
 
-import requests
+from requests import get
 from sys import argv
 
 if __name__ == '__main__':
-    e_id = argv[1]
-    user = requests.get(f'https://jsonplaceholder.typicode.com/users/{e_id}')
-    tasks = requests.get(f'https://jsonplaceholder.typicode.com/todos')
+    user = get(f'https://jsonplaceholder.typicode.com/users/{argv[0]}')
+    tasks = get(f'https://jsonplaceholder.typicode.com/todos')
     user = user.json()
     tasks = tasks.json()
 
+    e_id = argv[1]
     e_name = user.get('name')
     t_total = 0
     t_completed = []
