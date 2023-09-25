@@ -24,4 +24,4 @@ if __name__ == '__main__':
     t_done = len(t_completed)
     print(f'Employee {e_name} is done with tasks({t_done}/{t_total}):')
     for task in t_completed:
-        print(f'\t{task}')
+        print(f'\t {task}')
