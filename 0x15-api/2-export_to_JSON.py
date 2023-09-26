@@ -13,7 +13,7 @@ if __name__ == '__main__':
     tasks = tasks.json()
 
     e_id = argv[1]
-    e_name = user.get('name')
+    e_name = user.get('username')
     with open(f'{e_id}.json', 'w') as file_name:
         records = []
         for row in tasks:
