@@ -6,16 +6,18 @@ gathers data from an API and stores the data of a user in a csv file
 from sys import argv
 import csv
 from requests import get
-user = get(f'https://jsonplaceholder.typicode.com/users/{argv[1]}')
-tasks = get(f'https://jsonplaceholder.typicode.com/todos')
-user = user.json()
-tasks = tasks.json()
 
-e_id = argv[1]
-e_name = user.get('name')
-with open(f'{e_id}.csv', 'w') as file_name:
-    csv_writer = csv.writer(file_name)
-    for row in tasks:
-        if row.get('userId') == int(e_id):
-            temp = [e_id, e_name, row.get('completed'), row.get('title')]
-            csv_writer.writerow(temp)
+if __name__ == '__main__':
+    user = get(f'https://jsonplaceholder.typicode.com/users/{argv[1]}')
+    tasks = get(f'https://jsonplaceholder.typicode.com/todos')
+    user = user.json()
+    tasks = tasks.json()
+
+    e_id = argv[1]
+    e_name = user.get('name')
+    with open(f'{e_id}.csv', 'w') as file_name:
+        csv_writer = csv.writer(file_name)
+        for row in tasks:
+            if row.get('userId') == int(e_id):
+                temp = [e_id, e_name, row.get('completed'), row.get('title')]
+                csv_writer.writerow(temp)
