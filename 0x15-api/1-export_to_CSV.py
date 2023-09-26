@@ -16,8 +16,12 @@ if __name__ == '__main__':
     e_id = argv[1]
     e_name = user.get('name')
     with open(f'{e_id}.csv', 'w') as file_name:
-        csv_writer = csv.writer(file_name)
+        csv_writer = csv.writer(file_name, delimiter=",", quotechar='"',
+                                quoting=csv.QUOTE_ALL)
         for row in tasks:
             if row.get('userId') == int(e_id):
-                temp = [e_id, e_name, row.get('completed'), row.get('title')]
+                temp = [f'{e_id}',
+                        f'{e_name}',
+                        f'{row.get("completed")}',
+                        f'{row.get("title")}']
                 csv_writer.writerow(temp)
