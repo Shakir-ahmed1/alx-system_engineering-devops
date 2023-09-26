@@ -17,7 +17,7 @@ if __name__ == '__main__':
         for u in user:
             e_name = u.get('username')
             e_id = u.get('id')
-            result = []
+            result = {}
             for row in tasks:
                 if row.get('userId') == int(e_id):
                     temp = {
