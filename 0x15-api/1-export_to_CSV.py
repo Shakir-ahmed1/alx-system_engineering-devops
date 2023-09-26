@@ -14,7 +14,7 @@ if __name__ == '__main__':
     tasks = tasks.json()
 
     e_id = argv[1]
-    e_name = user.get('name')
+    e_name = user.get('username')
     with open(f'{e_id}.csv', 'w') as file_name:
         csv_writer = csv.writer(file_name, delimiter=",", quotechar='"',
                                 quoting=csv.QUOTE_ALL)
