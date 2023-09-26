@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" gathers data from an API """
+"""
+gathers data from an API
+"""
 from sys import argv
 import csv
 from requests import get
