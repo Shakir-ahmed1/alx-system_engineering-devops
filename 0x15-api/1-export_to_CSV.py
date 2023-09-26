@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-gathers data from an API
+gathers data from an API and stores the data of a user in a csv file
 """
 
 from sys import argv
