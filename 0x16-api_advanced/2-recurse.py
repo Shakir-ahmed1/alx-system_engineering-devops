@@ -5,6 +5,7 @@ given subreddit
 """
 import requests
 
+
 def recurse(subreddit, params={}, hot_list=[]):
     """ returns a list of titles """
     if params is not None:
@@ -14,11 +15,11 @@ def recurse(subreddit, params={}, hot_list=[]):
         r = response.json()
         if not r or 'error' in r:
             return None
-        
+
         for post in r['data']['children']:
             hot_list.append(post['data']['title'])
-        
-        params = {'after':r['data']['after']}
+
+        params = {'after': r['data']['after']}
         if params['after']:
             return recurse(subreddit, params=params, hot_list=hot_list)
-    return list(set(hot_list))
+    return hot_list
