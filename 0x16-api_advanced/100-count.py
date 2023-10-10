@@ -6,10 +6,7 @@ import requests
 
 
 def count_words(subreddit, word_list, after=None, count_dict=None):
-    """
-    Recursive function that queries the Reddit API, parses the title of all
-    hot articles, and prints a sorted count of given keywords
-    """
+    """ a function that queries the Reddit and count words in word_list """
     if count_dict is None:
         count_dict = {}
         for word in word_list:
