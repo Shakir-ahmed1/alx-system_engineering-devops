@@ -8,8 +8,7 @@ import requests
 def top_ten(subreddit):
     """ returns top 10 posts """
     headers = {'User-Agent': 'Mozilla/5.0'}
-    response = requests.get('https://www.reddit.com/r/programming/hot.json',
-                            headers=headers)
+    response = requests.get(f'https://www.reddit.com/r/{subreddit}/hot.json')
     if response.status_code != 200:
         print('None')
     else:
