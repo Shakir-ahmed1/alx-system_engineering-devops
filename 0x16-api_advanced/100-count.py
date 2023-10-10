@@ -1,48 +1,48 @@
-#!/usr/bin/python3
+#!usr/bin/python3
 """
-a recursive function that queries the Reddit API, parses the title of all hot
-articles, and prints a sortedcount of given keywords
+a module that counts all occurance of word in the titles of subreddits
 """
 import requests
 
 
-def sort_display(sa):
-    sc = []
-    for sb in sa:
-        sc.append([sb, sa[sb]])
-    sd = sorted(sc, key=lambda x: x[1], reverse=True)
-    for se in sd:
-        print("{}: {}".format(se[0], se[1]))
+def count_words(subreddit, word_list, after=None, count_dict=None):
+    """
+    Recursive function that queries the Reddit API, parses the title of all
+    hot articles, and prints a sorted count of given keywords
+    """
+    if count_dict is None:
+        count_dict = {}
+        for word in word_list:
+            count_dict[word.lower()] = 0
+    if after is None and count_dict == {}:
+        return None
 
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    params = {'limit': 100}
+    if after is not None:
+        params['after'] = after
 
-def count_words(subreddit, word_list, params={}, result={}):
-    """ prints the occurance of the word list in titles """
-    if params is not None:
-        link = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        response = requests.get(link, headers=headers, params=params)
-        r = response.json()
-        if not r or 'error' in r:
-            return None
-        if result == {}:
-            for word in word_list:
-                result[word] = 0
+    link = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    response = requests.get(link, headers=headers,
+                            params=params, allow_redirects=False)
+    if response.status_code != 200:
+        return None
+    data = response.json().get('data')
 
-        for post in r['data']['children']:
-            for wr in result:
-                pst = [ps.lower() for ps in post['data']['title'].split(' ')]
-                temp = pst.count(wr.lower())
-                result[wr] += temp
-        params = {'after': r['data']['after']}
-        if params['after']:
-            count_words(subreddit, word_list, params=params, result=result)
+    articles = data.get('children')
 
-    r_set = list(set([rs.lower() for rs in result if result[rs] != 0]))
-    r_dict = {}
-    for rs in r_set:
-        r_dict[rs] = 0
-    for rs in result:
-        if result[rs] != 0:
-            r_dict[rs.lower()] += result[rs]
-    if params['after'] is None:
-        sort_display(r_dict)
+    for article in articles:
+        title = article.get('data').get('title').lower()
+        for word in word_list:
+            word = word.lower()
+            if word in title.split():
+                count_dict[word] += title.split().count(word)
+
+    after = data.get('after')
+    if after is not None:
+        count_words(subreddit, word_list, after, count_dict)
+    else:
+        sorted_count = sorted(count_dict.items(), key=lambda x: (-x[1], x[0]))
+        for key, value in sorted_count:
+            if value > 0:
+                print('{}: {}'.format(key, value))
