@@ -19,5 +19,8 @@ def top_ten(subreddit):
             if count >= 10:
                 break
             if hots:
-                print(hots.get('data').get('title').encode('utf-8'))
+                try:
+                    print(hots.get('data').get('title'))
+                except Exception:
+                    print()
             count += 1
