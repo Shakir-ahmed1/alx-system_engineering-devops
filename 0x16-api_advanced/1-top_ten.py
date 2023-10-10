@@ -8,8 +8,8 @@ import requests
 def top_ten(subreddit):
     """ returns top 10 posts """
     headers = {'User-Agent': 'Mozilla/5.0'}
-    response = requests.get(f'https://www.reddit.com/r/{subreddit}/hot.json',
-                            headers=headers)
+    link = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    response = requests.get(link, headers=headers)
     r = response.json()
     if response.status_code != 200 or not r.get('data').get('children'):
         print('None')
@@ -19,5 +19,5 @@ def top_ten(subreddit):
             if count >= 10:
                 break
             if hots:
-                print(hots.get('data').get('title'))
+                print(hots.get('data').get('title').encode('utf-8'))
             count += 1
