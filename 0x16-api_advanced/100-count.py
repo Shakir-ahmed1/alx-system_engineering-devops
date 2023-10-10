@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """
 a module that counts all occurance of word in the titles of subreddits
 """
