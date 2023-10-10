@@ -8,9 +8,9 @@ import requests
 def top_ten(subreddit):
     """ returns top 10 posts """
     response = requests.get('https://www.reddit.com/r/programming/hot.json')
-    r = response.json()
-    if not r or 'error' in r:
+    if response.status_code != 200:
         print('None')
+    r = response.json()
     else:
         count = 0
         for hots in r['data']['children']:
