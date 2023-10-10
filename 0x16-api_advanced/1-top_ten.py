@@ -10,10 +10,10 @@ def top_ten(subreddit):
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(f'https://www.reddit.com/r/{subreddit}/hot.json',
                             headers=headers)
-    if response.status_code != 200:
+    r = response.json()
+    if response.status_code != 200 or not r['data']['children']:
         print('None')
     else:
-        r = response.json()
         count = 0
         for hots in r['data']['children']:
             if count >= 10:
