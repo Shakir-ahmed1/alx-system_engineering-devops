@@ -1,0 +1,11 @@
+#!/bin/bash
+# Get the PID of Gunicorn master process
+MASTER_PID=$(ps aux | grep gunicorn | grep master | awk '{print $2}')
+
+if [ -n "$MASTER_PID" ]; then
+    kill -HUP $MASTER_PID
+    echo "Gunicorn master process ($MASTER_PID) has been signalled to reload."
+else
+    echo "Gunicorn is not running."
+fi
+
