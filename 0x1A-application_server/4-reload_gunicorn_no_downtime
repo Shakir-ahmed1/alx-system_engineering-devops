@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
-# Gracefully reloads Gunicorn.
-MASTER_PID=$(pgrep -f gunicorn)
-kill -HUP "$MASTER_PID"
+# Stop all Gunicorn workers
+killall -s SIGTERM gunicorn
+while pgrep -f gunicorn > /dev/null; do
+  sleep 1
+done
