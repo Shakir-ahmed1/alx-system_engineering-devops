@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# Stop all Gunicorn workers
-killall -s SIGTERM gunicorn
-while pgrep -f gunicorn > /dev/null; do
-  sleep 1
-done
-gunicorn --config /home/ubuntu/.local/bin/gunicorn.conf
+# Gracefully reloads Gunicorn.
+
+ps aux | grep gunicorn | awk '{ print $2 }' | xargs kill -HUP
