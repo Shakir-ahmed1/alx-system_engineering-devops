@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
 # Gracefully reloads Gunicorn.
 MASTER_PID=$(pgrep -f gunicorn)
-
-if [ -z "$MASTER_PID" ]; then
-    exit 1
-fi
-
 kill -HUP "$MASTER_PID"
