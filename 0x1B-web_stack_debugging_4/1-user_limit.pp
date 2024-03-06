@@ -1,20 +1,13 @@
-# Puppet manifest to adjust OS configuration for the holberton user
+# enable the user holberton to login and open files without errors
 
-# Set the file limits system-wide
-file { '/etc/security/limits.conf':
-  ensure  => present,
-  content => "*       hard    nofile  8192\n*       soft    nofile  4096\n",
-  owner   => 'root',
-  group   => 'root',
-  mode    => '0644',
+# increase hard file limit
+exec { 'increase-hard-file-limit-for-holberton-user':
+  command => 'sed -i "/holberton hard/s/5/50000/" /etc/security/limits.conf'
+  path    => '/usr/local/bin/:/bin/'
 }
 
-# Ensure PAM session configuration for the holberton user
-file { '/etc/pam.d/sshd':
-  ensure  => present,
-  content => "session required pam_limits.so",
-  owner   => 'root',
-  group   => 'root',
-  mode    => '0644',
+# increase soft file limit
+exec { 'increase-soft-file-limit-for-holberton-user':
+  command => 'sed -i "/holberton soft/s/4/50000/" /etc/security/limits.conf'
+  path    => '/usr/local/bin/:/bin/'
 }
-
