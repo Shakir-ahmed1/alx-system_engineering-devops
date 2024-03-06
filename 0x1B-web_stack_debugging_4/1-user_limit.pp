@@ -1,11 +1,25 @@
-# limit user to holberton
+# Puppet manifest to adjust OS configuration for the holberton user
 
-exec { 'increase-hard-file-limit-for-holberton-user':
-  command => 'sed -i "/holberton hard/s/5/50000/" /etc/security/limits.conf'
-  path    => '/usr/local/bin/:/bin/'
+# Set the file limits system-wide
+file { '/etc/security/limits.conf':
+  ensure  => present,
+  content => "*       hard    nofile  8192\n*       soft    nofile  4096\n",
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
 }
 
-exec { 'increase-soft-file-limit-for-holberton-user':
-  command => 'sed -i "/holberton soft/s/4/50000/" /etc/security/limits.conf'
-  path    => '/usr/local/bin/:/bin/'
+# Ensure PAM session configuration for the holberton user
+file { '/etc/pam.d/sshd':
+  ensure  => present,
+  content => "session required pam_limits.so",
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
 }
+
+# Notify the user to log out and log back in for the changes to take effect
+notify { 'Please log out and log back in for the changes to take effect':
+  require => File['/etc/security/limits.conf', '/etc/pam.d/sshd'],
+}
+
