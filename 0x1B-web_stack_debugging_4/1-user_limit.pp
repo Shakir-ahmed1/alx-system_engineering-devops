@@ -18,8 +18,3 @@ file { '/etc/pam.d/sshd':
   mode    => '0644',
 }
 
-# Notify the user to log out and log back in for the changes to take effect
-notify { 'Please log out and log back in for the changes to take effect':
-  require => File['/etc/security/limits.conf', '/etc/pam.d/sshd'],
-}
-
